@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link th:href="@{css/style.css}" rel="stylesheet" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark " style="color:white">
+    <a class="navbar-brand" href="#">Task Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav header">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="profile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div style="margin-left:10px">
+    <h1 >HI!, <span th:text= "${username}"></span></h1>
+    <h2>Assigned Tasks</h2>
+    <br>
+    <table class="task-table table  table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Last Date</th>
+            <th>Completed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task:${allTasks}">
+
+            <td class="text-left" th:text="${task.name}"></td>
+            <td class="text-left d-none d-sm-table-cell" th:text="${task.description}"></td>
+
+            <td th:text="${task.date}"></td>
+
+
+            <td style="padding-left:2%">
+
+                <a  th:href="${task.completed} ? ${'task/unmark/'+task.id} : ${'task/mark/'+task.id} ">
+                <i th:class="${task.completed} ? ' fa fa-check-square-o':'fa fa-square-o'"></i>
+                </a>
+            </td>
+
+        </tr>
+
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
